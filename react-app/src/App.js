@@ -9,7 +9,12 @@ export default class App extends React.Component {
     return res.data.message
   }
 
-
+  async getCatURL() {
+    const res = await axios.get("https://aws.random.cat/meow");
+    console.log(res.data)
+    return res.data.file
+  }
+  
   constructor(...args) {
     super(...args); //for use 'this'
     this.state = {data: null};
@@ -19,7 +24,7 @@ export default class App extends React.Component {
     if (!this.state.data) {
       (async () => {
         try {
-          this.setState( {data: await this.getData() });
+          this.setState( {data: await this.getData(), cat: await this.getCatURL() });
 
         } catch(e) {
 
@@ -30,10 +35,11 @@ export default class App extends React.Component {
 
 
 render() {
+  const imgURL = this.state.cat;
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img src={imgURL} alt="cat" />
         <p>
           HackaLearn Korea_bumjin
         </p>
