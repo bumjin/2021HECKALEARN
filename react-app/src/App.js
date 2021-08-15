@@ -1,3 +1,4 @@
+import logo from './logo.svg';
 import './App.css';
 import React from "react"
 import axios from "axios"
@@ -9,21 +10,21 @@ export default class App extends React.Component {
   }
 
   async getCatURL() {
-    const res = await axios.get("https://aws.random.cat/meow");
+    const res = await axios.get("https://api.thecatapi.com/v1/images/search?ref=morioh.com");
     console.log(res.data)
-    return res.data.file
+    return res.data[0].url;
   }
   
   constructor(...args) {
     super(...args); //for use 'this'
-    this.state = {data: null};
+    this.state = {data: null, catURL: null};
   }
 
   componentDidMount() {
     if (!this.state.data) {
       (async () => {
         try {
-          this.setState( {data: await this.getData(), cat: await this.getCatURL() });
+          this.setState( {data: await this.getData(), catURL: await this.getCatURL() });
 
         } catch(e) {
 
@@ -34,7 +35,7 @@ export default class App extends React.Component {
 
 
 render() {
-  const imgURL = this.state.cat;
+  const imgURL = this.state.catURL;
   return (
     <div className="App">
       <header className="App-header">
