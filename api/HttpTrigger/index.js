@@ -8,7 +8,7 @@ module.exports = async function (context, req) {
 
     context.res = {
         // status: 200, /* Defaults to 200 */
-        Headers: {"Access-Control-Allow-Origin": "*"},
+        headers: {"Access-Control-Allow-Origin": "*"},
         body: { message: utcDate.toISOString() }
         //res = time
     };
